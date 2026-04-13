@@ -5,11 +5,11 @@
 // After running `wrangler deploy` in /worker, it will give you a URL like:
 //   https://nautica-ais-proxy.YOUR-SUBDOMAIN.workers.dev
 // ─────────────────────────────────────────────────────────────────────────────
-const WORKER_URL = ‘https://nautica-ais-proxy.kezia-west.workers.dev’;
+const WORKER_URL = 'https://nautica-ais-proxy.kezia-west.workers.dev';
 
 // Convert wss:// or ws:// based on WORKER_URL protocol
-const WORKER_WS = WORKER_URL.replace(/^https?/, match => match === ‘https’ ? ‘wss’ : ‘ws’);
-
+const WORKER_WS = WORKER_URL.replace(/^https?/, match => match === 'https' ? 'wss' : 'ws');
+const REGIONS = {
   global: { label: 'Global', center: [20, 0], zoom: 3, bbox: '-90,-180,90,180' },
   north_atlantic: { label: 'North Atlantic', center: [45, -40], zoom: 4, bbox: '20,-80,65,10' },
   north_sea: { label: 'North Sea', center: [55, 3], zoom: 6, bbox: '50,-5,62,12' },
