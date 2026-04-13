@@ -71,6 +71,13 @@
     });
   }
 
+  var downloadBtn = document.getElementById('download-btn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', function() {
+      downloadVessels();
+    });
+  }
+
   var panelClose = document.getElementById('panel-close');
   if (panelClose) {
     panelClose.addEventListener('click', function() {

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +13,6 @@
 <body>
 
   <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
-
   <nav id="navbar">
     <div class="nav-inner">
       <a class="nav-logo" href="#" data-page="home">
@@ -26,37 +24,33 @@
         NAUTICA
       </a>
 
-```
-  <ul class="nav-links">
-    <li><a href="#" data-page="map" class="nav-link">Map</a></li>
-    <li><a href="#" data-page="about" class="nav-link">About</a></li>
-    <li><a href="#" data-page="how" class="nav-link">How It Works</a></li>
-  </ul>
+      <ul class="nav-links">
+        <li><a href="#" data-page="map" class="nav-link">Map</a></li>
+        <li><a href="#" data-page="about" class="nav-link">About</a></li>
+        <li><a href="#" data-page="how" class="nav-link">How It Works</a></li>
+      </ul>
 
-  <div class="nav-status">
-    <span class="status-pip" id="nav-pip"></span>
-    <span class="status-text" id="nav-status-text">OFFLINE</span>
-  </div>
+      <div class="nav-status">
+        <span class="status-pip" id="nav-pip"></span>
+        <span class="status-text" id="nav-status-text">OFFLINE</span>
+      </div>
 
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
-<!-- Mobile drawer -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#" data-page="map" class="mobile-link">Map</a>
-  <a href="#" data-page="about" class="mobile-link">About</a>
-  <a href="#" data-page="how" class="mobile-link">How It Works</a>
-</div>
-```
-
+    <!-- Mobile drawer -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#" data-page="map" class="mobile-link">Map</a>
+      <a href="#" data-page="about" class="mobile-link">About</a>
+      <a href="#" data-page="how" class="mobile-link">How It Works</a>
+    </div>
   </nav>
 
   <!-- ═══════════════════════════════ PAGES ═════════════════════════════ -->
 
   <!-- HOME / HERO -->
-
   <section id="page-home" class="page active">
     <div class="hero">
       <div class="hero-bg">
@@ -97,7 +91,6 @@
   </section>
 
   <!-- MAP PAGE -->
-
   <section id="page-map" class="page">
     <div id="map-toolbar">
       <div class="toolbar-left">
@@ -124,40 +117,37 @@
       </div>
       <div class="toolbar-right">
         <button class="tb-btn" id="toggle-legend-btn" title="Toggle legend">⊞ Legend</button>
+        <button class="tb-btn tb-btn-download" id="download-btn" title="Download visible vessels as CSV">⬇ Download</button>
       </div>
     </div>
 
-```
-<div id="map"></div>
+    <div id="map"></div>
 
-<!-- Legend -->
-<div id="legend">
-  <div class="legend-title">VESSEL TYPES <span class="legend-hint">click to filter</span></div>
-  <div id="legend-items"></div>
-</div>
-
-<!-- Side panel -->
-<div id="side-panel" class="panel-closed">
-  <div class="panel-header">
-    <span class="panel-title" id="panel-title">SELECT A VESSEL</span>
-    <button class="panel-close" id="panel-close">✕</button>
-  </div>
-  <div id="panel-content">
-    <div class="panel-empty">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <path d="M20 3L5 33h30L20 3z" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none"/>
-        <circle cx="20" cy="32" r="2" fill="rgba(255,255,255,0.15)"/>
-      </svg>
-      <p>Click any vessel on the map to inspect it</p>
+    <!-- Legend -->
+    <div id="legend">
+      <div class="legend-title">VESSEL TYPES <span class="legend-hint">click to filter</span></div>
+      <div id="legend-items"></div>
     </div>
-  </div>
-</div>
-```
 
+    <!-- Side panel -->
+    <div id="side-panel" class="panel-closed">
+      <div class="panel-header">
+        <span class="panel-title" id="panel-title">SELECT A VESSEL</span>
+        <button class="panel-close" id="panel-close">✕</button>
+      </div>
+      <div id="panel-content">
+        <div class="panel-empty">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 3L5 33h30L20 3z" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none"/>
+            <circle cx="20" cy="32" r="2" fill="rgba(255,255,255,0.15)"/>
+          </svg>
+          <p>Click any vessel on the map to inspect it</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ABOUT PAGE -->
-
   <section id="page-about" class="page content-page">
     <div class="content-wrap">
       <div class="content-eyebrow">ABOUT</div>
@@ -201,7 +191,6 @@
   </section>
 
   <!-- HOW IT WORKS PAGE -->
-
   <section id="page-how" class="page content-page">
     <div class="content-wrap">
       <div class="content-eyebrow">HOW IT WORKS</div>
@@ -214,66 +203,58 @@
           a global feed.
         </p>
 
-```
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-body">
-          <h3>Ships Broadcast</h3>
-          <p>Vessels transmit AIS signals every 2–10 seconds containing position, speed, heading, ship name, type, and destination.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h3>Ships Broadcast</h3>
+              <p>Vessels transmit AIS signals every 2–10 seconds containing position, speed, heading, ship name, type, and destination.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h3>Global Network Receives</h3>
+              <p>A worldwide network of terrestrial receivers and satellites captures these broadcasts and feeds them into a real-time data stream.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h3>NAUTICA Streams It</h3>
+              <p>Our server connects to the AIS feed via WebSocket and relays only the data for the region you're viewing — keeping things fast and efficient.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h3>You See It Live</h3>
+              <p>Vessel positions appear on your map within seconds of being broadcast — color-coded by type with full details on click.</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-body">
-          <h3>Global Network Receives</h3>
-          <p>A worldwide network of terrestrial receivers and satellites captures these broadcasts and feeds them into a real-time data stream.</p>
+
+        <div class="info-box">
+          <div class="info-box-title">⚠️ About AIS Limitations</div>
+          <p>AIS is a self-reported system — vessels can technically spoof or disable their transponders. For investigative work, always cross-reference with satellite imagery and other sources. Vessels under 300 gross tonnes are not required to carry AIS.</p>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-body">
-          <h3>NAUTICA Streams It</h3>
-          <p>Our server connects to the AIS feed via WebSocket and relays only the data for the region you're viewing — keeping things fast and efficient.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-body">
-          <h3>You See It Live</h3>
-          <p>Vessel positions appear on your map within seconds of being broadcast — color-coded by type with full details on click.</p>
+
+        <div class="vessel-type-table">
+          <div class="vtt-title">VESSEL TYPE COLOR GUIDE</div>
+          <div class="vtt-grid" id="vtt-grid"></div>
         </div>
       </div>
     </div>
-
-    <div class="info-box">
-      <div class="info-box-title">⚠️ About AIS Limitations</div>
-      <p>AIS is a self-reported system — vessels can technically spoof or disable their transponders. For investigative work, always cross-reference with satellite imagery and other sources. Vessels under 300 gross tonnes are not required to carry AIS.</p>
-    </div>
-
-    <div class="vessel-type-table">
-      <div class="vtt-title">VESSEL TYPE COLOR GUIDE</div>
-      <div class="vtt-grid" id="vtt-grid"></div>
-    </div>
-  </div>
-</div>
-```
-
   </section>
 
   <!-- Toast -->
-
   <div id="toast"></div>
 
   <script src="config.js"></script>
-
   <script src="vesselTypes.js"></script>
-
   <script src="tracker.js"></script>
-
   <script src="ui.js"></script>
-
+  <script src="download.js"></script>
   <script src="main.js"></script>
-
 </body>
 </html>
