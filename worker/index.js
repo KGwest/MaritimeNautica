@@ -10,24 +10,20 @@
  *
  * Your AIS_API_KEY is stored as a Cloudflare secret — never visible to users.
  */
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // CORS preflight
     if (request.method === 'OPTIONS') {
       return corsResponse(new Response(null, { status: 204 }));
     }
 
-    // Health check
     if (url.pathname === '/health') {
       return corsResponse(new Response(JSON.stringify({ status: 'ok' }), {
         headers: { 'Content-Type': 'application/json' },
       }));
     }
 
-    // WebSocket upgrade — proxy to AISstream
     if (url.pathname === '/stream') {
       if (request.headers.get('Upgrade') !== 'websocket') {
         return corsResponse(new Response('Expected WebSocket', { status: 426 }));
@@ -38,16 +34,16 @@ export default {
         return corsResponse(new Response('AIS_API_KEY not configured', { status: 500 }));
       }
 
-      // Parse bounding box from query params (sent by the frontend)
-      // e.g. ?bbox=-90,-180,90,180
       const bboxParam = url.searchParams.get('bbox') || '-90,-180,90,180';
-      const [minLat, minLon, maxLat, maxLon] = bboxParam.split(',').map(Number);
+      const parts = bboxParam.split(',').map(Number);
+      const minLat = parts[0];
+      const minLon = parts[1];
+      const maxLat = parts[2];
+      const maxLon = parts[3];
 
-      // Upgrade both sides
       const [client, clientWs] = Object.values(new WebSocketPair());
       clientWs.accept();
 
-      // Connect to AISstream
       const upstream = new WebSocket('wss://stream.aisstream.io/v0/stream');
 
       upstream.addEventListener('open', () => {
@@ -59,9 +55,19 @@ export default {
         upstream.send(JSON.stringify(subscription));
       });
 
-      // Forward upstream → client
       upstream.addEventListener('message', (evt) => {
-        try { clientWs.send(evt.data); } catch (_) {}
+        try {
+          // Handle both text and binary messages from AISstream
+          if (typeof evt.data === 'string') {
+            clientWs.send(evt.data);
+          } else {
+            // Binary — convert to text
+            const reader = new Response(evt.data).text();
+            reader.then((text) => {
+              try { clientWs.send(text); } catch (_) {}
+            });
+          }
+        } catch (_) {}
       });
 
       upstream.addEventListener('close', () => {
@@ -72,9 +78,10 @@ export default {
         try { clientWs.close(1011, 'Upstream error'); } catch (_) {}
       });
 
-      // Forward client → upstream (subscription updates / pings)
       clientWs.addEventListener('message', (evt) => {
-        try { if (upstream.readyState === WebSocket.OPEN) upstream.send(evt.data); } catch (_) {}
+        try {
+          if (upstream.readyState === WebSocket.OPEN) upstream.send(evt.data);
+        } catch (_) {}
       });
 
       clientWs.addEventListener('close', () => {
