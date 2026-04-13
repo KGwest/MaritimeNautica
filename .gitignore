@@ -1,0 +1,29 @@
+# ── Dependencies ──────────────────────────────
+node_modules/
+worker/node_modules/
+
+# ── Environment / Secrets ─────────────────────
+# NEVER commit these — your API key lives here
+.env
+.env.local
+.env.production
+secrets.js
+
+# ── Cloudflare / Wrangler ─────────────────────
+.wrangler/
+worker/.wrangler/
+
+# ── OS junk ───────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor folders ────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────
+*.log
+npm-debug.log*
