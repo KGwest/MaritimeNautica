@@ -1,143 +1,141 @@
 // main.js — App bootstrap, navigation, event wiring
 
 (function () {
-‘use strict’;
+  'use strict';
 
-// ── Page router ────────────────────────────────────────────────────────────
-const pages   = document.querySelectorAll(’.page’);
-const navLinks = document.querySelectorAll(’[data-page]’);
-let currentPage = ‘home’;
-let mapStarted  = false;
+  var currentPage = 'home';
+  var mapStarted  = false;
 
-function showPage(id) {
-if (id === currentPage) return;
-currentPage = id;
+  function showPage(id) {
+    if (id === currentPage) return;
+    currentPage = id;
 
-```
-pages.forEach(p => p.classList.remove('active'));
-const target = document.getElementById(`page-${id}`);
-if (target) target.classList.add('active');
+    var pages = document.querySelectorAll('.page');
+    pages.forEach(function(p) { p.classList.remove('active'); });
 
-// Update nav link active state
-document.querySelectorAll('.nav-link').forEach(l => {
-  l.classList.toggle('active', l.dataset.page === id);
-});
+    var target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
 
-// Init map on first visit to map page
-if (id === 'map' && !mapStarted) {
-  mapStarted = true;
-  const savedRegion = localStorage.getItem('nautica_region') || 'global';
-  mapUI.init();
-  tracker.connect(savedRegion);
-  document.getElementById('region-select').value = savedRegion;
-}
+    document.querySelectorAll('.nav-link').forEach(function(l) {
+      l.classList.toggle('active', l.dataset.page === id);
+    });
 
-// Close mobile menu
-document.getElementById('mobile-menu')?.classList.remove('open');
-document.body.style.overflow = id === 'home' ? 'hidden' : '';
-```
+    if (id === 'map' && !mapStarted) {
+      mapStarted = true;
+      var savedRegion = localStorage.getItem('nautica_region') || 'global';
+      mapUI.init();
+      tracker.connect(savedRegion);
+      var regionSelect = document.getElementById('region-select');
+      if (regionSelect) regionSelect.value = savedRegion;
+    }
 
-}
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) mobileMenu.classList.remove('open');
+    document.body.style.overflow = id === 'home' ? 'hidden' : '';
+  }
 
-// Wire all [data-page] links and buttons
-document.addEventListener(‘click’, (e) => {
-const el = e.target.closest(’[data-page]’);
-if (el) {
-e.preventDefault();
-showPage(el.dataset.page);
-}
-});
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('[data-page]');
+    if (el) {
+      e.preventDefault();
+      showPage(el.dataset.page);
+    }
+  });
 
-// Show home on load
-showPage(‘home’);
+  showPage('home');
 
-// ── Hamburger ──────────────────────────────────────────────────────────────
-document.getElementById(‘hamburger’)?.addEventListener(‘click’, () => {
-document.getElementById(‘mobile-menu’)?.classList.toggle(‘open’);
-});
+  var hamburger = document.getElementById('hamburger');
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      var menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('open');
+    });
+  }
 
-// ── Region select ──────────────────────────────────────────────────────────
-document.getElementById(‘region-select’)?.addEventListener(‘change’, (e) => {
-const region = e.target.value;
-localStorage.setItem(‘nautica_region’, region);
-mapUI.clearAll();
-mapUI.flyToRegion(region);
-tracker.changeRegion(region);
-});
+  var regionSelect = document.getElementById('region-select');
+  if (regionSelect) {
+    regionSelect.addEventListener('change', function(e) {
+      var region = e.target.value;
+      localStorage.setItem('nautica_region', region);
+      mapUI.clearAll();
+      mapUI.flyToRegion(region);
+      tracker.changeRegion(region);
+    });
+  }
 
-// ── Legend toggle ──────────────────────────────────────────────────────────
-document.getElementById(‘toggle-legend-btn’)?.addEventListener(‘click’, () => {
-document.getElementById(‘legend’)?.classList.toggle(‘hidden’);
-});
+  var legendBtn = document.getElementById('toggle-legend-btn');
+  if (legendBtn) {
+    legendBtn.addEventListener('click', function() {
+      var legend = document.getElementById('legend');
+      if (legend) legend.classList.toggle('hidden');
+    });
+  }
 
-// ── Panel close ────────────────────────────────────────────────────────────
-document.getElementById(‘panel-close’)?.addEventListener(‘click’, () => {
-closePanel();
-if (mapUI.activeTrail) {
-mapUI.trailLayers.get(mapUI.activeTrail)?.remove();
-mapUI.trailLayers.delete(mapUI.activeTrail);
-mapUI.activeTrail = null;
-}
-mapUI.selectedMmsi = null;
-});
+  var panelClose = document.getElementById('panel-close');
+  if (panelClose) {
+    panelClose.addEventListener('click', function() {
+      closePanel();
+      if (mapUI.activeTrail) {
+        var layer = mapUI.trailLayers.get(mapUI.activeTrail);
+        if (layer) layer.remove();
+        mapUI.trailLayers.delete(mapUI.activeTrail);
+        mapUI.activeTrail = null;
+      }
+      mapUI.selectedMmsi = null;
+    });
+  }
 
-// ── Tracker events ─────────────────────────────────────────────────────────
-tracker.addEventListener(‘statusChange’, ({ detail }) => {
-const pip  = document.getElementById(‘nav-pip’);
-const text = document.getElementById(‘nav-status-text’);
-if (!pip || !text) return;
+  tracker.addEventListener('statusChange', function(e) {
+    var detail = e.detail;
+    var pip  = document.getElementById('nav-pip');
+    var text = document.getElementById('nav-status-text');
+    if (!pip || !text) return;
 
-```
-const labels = {
-  online:       'LIVE',
-  connecting:   'CONNECTING',
-  reconnecting: 'RECONNECTING',
-  error:        'ERROR',
-  offline:      'OFFLINE',
-};
+    var labels = {
+      online:       'LIVE',
+      connecting:   'CONNECTING',
+      reconnecting: 'RECONNECTING',
+      error:        'ERROR',
+      offline:      'OFFLINE',
+    };
 
-pip.className  = 'status-pip ' + detail.status;
-text.className = 'status-text ' + detail.status;
-text.textContent = labels[detail.status] ?? detail.status.toUpperCase();
+    pip.className  = 'status-pip ' + detail.status;
+    text.className = 'status-text ' + detail.status;
+    text.textContent = labels[detail.status] || detail.status.toUpperCase();
 
-const toastMap = {
-  online:       ['Connected — vessels loading', 'success'],
-  reconnecting: ['Connection lost, retrying…',   'warn'],
-  error:        ['WebSocket error',               'error'],
-};
-if (toastMap[detail.status]) showToast(...toastMap[detail.status]);
-```
+    if (detail.status === 'online') showToast('Connected - vessels loading', 'success');
+    if (detail.status === 'reconnecting') showToast('Connection lost, retrying...', 'warn');
+    if (detail.status === 'error') showToast('WebSocket error', 'error');
+  });
 
-});
+  tracker.addEventListener('vesselUpdate', function(e) {
+    mapUI.upsertVessel(e.detail.vessel);
+  });
 
-tracker.addEventListener(‘vesselUpdate’, ({ detail }) => {
-mapUI.upsertVessel(detail.vessel);
-});
+  tracker.addEventListener('vesselStatic', function(e) {
+    mapUI.updateStatic(e.detail.vessel);
+  });
 
-tracker.addEventListener(‘vesselStatic’, ({ detail }) => {
-mapUI.updateStatic(detail.vessel);
-});
+  tracker.addEventListener('vesselRemoved', function(e) {
+    mapUI.removeVessel(e.detail.mmsi);
+  });
 
-tracker.addEventListener(‘vesselRemoved’, ({ detail }) => {
-mapUI.removeVessel(detail.mmsi);
-});
+  tracker.addEventListener('statsUpdate', function(e) {
+    var vc = document.getElementById('vessel-count');
+    var uc = document.getElementById('update-count');
+    if (vc) vc.textContent = e.detail.count.toLocaleString();
+    if (uc) uc.textContent = e.detail.updates.toLocaleString();
+  });
 
-tracker.addEventListener(‘statsUpdate’, ({ detail }) => {
-const vc = document.getElementById(‘vessel-count’);
-const uc = document.getElementById(‘update-count’);
-if (vc) vc.textContent = detail.count.toLocaleString();
-if (uc) uc.textContent = detail.updates.toLocaleString();
-});
-
-// ── Toast ──────────────────────────────────────────────────────────────────
-let toastTimer;
-window.showToast = function (msg, type = ‘info’) {
-const el = document.getElementById(‘toast’);
-if (!el) return;
-el.textContent = msg;
-el.className = `visible ${type}`;
-clearTimeout(toastTimer);
-toastTimer = setTimeout(() => el.classList.remove(‘visible’), 3500);
-};
+  var toastTimer;
+  window.showToast = function(msg, type) {
+    type = type || 'info';
+    var el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'visible ' + type;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() { el.classList.remove('visible'); }, 3500);
+  };
 
 })();
