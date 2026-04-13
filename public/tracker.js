@@ -63,8 +63,19 @@ class VesselTracker extends EventTarget {
     };
 
     ws.onmessage = (evt) => {
-      try { this._handleMessage(JSON.parse(evt.data)); } catch (_) {}
-    };
+          try {
+            if (typeof evt.data === 'string') {
+              this._handleMessage(JSON.parse(evt.data));
+            } else if (evt.data instanceof Blob) {
+              evt.data.text().then((text) => {
+                try { this._handleMessage(JSON.parse(text)); } catch (_) {}
+              });
+            } else if (evt.data instanceof ArrayBuffer) {
+              const text = new TextDecoder().decode(evt.data);
+              try { this._handleMessage(JSON.parse(text)); } catch (_) {}
+            }
+          } catch (_) {}
+        };
 
     ws.onerror = () => {
       this._emit('statusChange', { status: 'error' });
