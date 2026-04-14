@@ -1,5 +1,7 @@
 🚢 NAUTICA — Live Ship Tracker
-A frictionless, real-time global vessel tracking tool built for journalists, researchers, and anyone who needs to know what's moving on the ocean right now. Users open the site and ships appear — no accounts, no API keys, no friction.
+A frictionless, real-time global vessel tracking tool built for journalists, researchers, and anyone who needs to know what's moving on the ocean right now. Users open the site and ships appear. 
+No accounts, no API keys.
+
 🌐 Live site: maritimenautica.pages.dev
 
 <img width="1659" height="950" alt="image" src="https://github.com/user-attachments/assets/4345ac51-9ba7-4ab1-af28-828fa305fea0" />
@@ -8,13 +10,21 @@ A frictionless, real-time global vessel tracking tool built for journalists, res
 Features
 
 Real-time AIS data — live vessel positions streamed via WebSocket
+
 Color-coded by vessel type — cargo, tanker, passenger, fishing, military, sailing, and more
+
 Directional arrows — each marker points in the vessel's heading
+
 Click any vessel — side panel shows name, type, speed, course, heading, destination, flag, IMO, and dimensions
+
 Vessel trail — toggle a dashed path showing recent route history
+
 Legend filter — click any vessel type to hide/show it on the map
+
 Region selector — focus on North Sea, Mediterranean, Persian Gulf, US coasts, and more
+
 Download CSV — export all currently visible vessels to a spreadsheet instantly
+
 Auto-reconnect — recovers from connection drops automatically
 
 
@@ -45,10 +55,13 @@ MaritimeNautica/
 
 Forking & Self-Hosting
 Want to run your own instance? Here's how.
+
 Step 1 — Get a free AISstream API key
 Sign up at aisstream.io — no credit card required.
+
 Step 2 — Deploy the Cloudflare Worker
 The Worker is your secure proxy. It holds your AIS API key as an encrypted secret — it never touches your code or GitHub.
+
 bash# Install Wrangler (Cloudflare's CLI)
 npm install -g wrangler
 
