@@ -2,6 +2,9 @@
 A frictionless, real-time global vessel tracking tool built for journalists, researchers, and anyone who needs to know what's moving on the ocean right now. Users open the site and ships appear — no accounts, no API keys, no friction.
 🌐 Live site: maritimenautica.pages.dev
 
+<img width="1659" height="950" alt="image" src="https://github.com/user-attachments/assets/4345ac51-9ba7-4ab1-af28-828fa305fea0" />
+
+
 Features
 
 Real-time AIS data — live vessel positions streamed via WebSocket
