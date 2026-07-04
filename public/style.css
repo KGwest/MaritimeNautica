@@ -1051,6 +1051,50 @@ button { cursor: pointer; font-family: inherit; }
 .popup-details { margin-top: 6px; font-family: var(--font-mono); font-size: 9px; color: var(--muted); display: flex; flex-direction: column; gap: 2px; }
 .popup-action  { margin-top: 8px; font-family: var(--font-mono); font-size: 8px; letter-spacing: 1.5px; color: var(--accent); cursor: pointer; }
 
+
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+
+#site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: rgba(8, 12, 16, 0.92);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--dim);
+}
+
+.footer-inner a {
+  color: var(--accent-dim);
+  transition: color 0.2s;
+}
+
+.footer-inner a:hover { color: var(--accent); }
+
+.footer-div { opacity: 0.3; }
+
+#map { bottom: 32px; }
+#legend { bottom: 56px; }
+
+
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
